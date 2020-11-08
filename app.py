@@ -9,7 +9,7 @@
 #   return 'User:%s' % name
 from flask import Flask, render_template
 app = Flask(__name__)
-name = 'Grey Li'
+name = 'Movee'
 movies = [
 {'title': 'My Neighbor Totoro', 'year': '1988'},
 {'title': 'Dead Poets Society', 'year': '1989'},

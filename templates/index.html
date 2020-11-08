@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ name }}'s Watchlist</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}" type="text/css">
 </head>
 <body>
-    <h2>{{ name }}'s Watchlist</h2>
+    <h2>
+        <small><img src="{{ url_for('static', filename='images/avatar.png')}}" class="avatar" alt="Avatar"></small>
+        {{ name }}'s Watchlist
+    </h2>
     {# 使用length过滤器获得movies的长度#}
     <p>{{movies|length}} Titles</p>
-    <ul>
+    <ul class="movie-list">
         {% for movie in movies %}
         <li>{{ movie.title }} - {{movie.year}}</li>
         {% endfor %}
@@ -16,5 +21,6 @@
     <footer>
         <small>%copy; 2018<a href="http://jwzx.cqupt.edu.cn">重邮芜湖</a></small>
     </footer>
+    <img alt="Walking Totoro" class="totoro" src="{{ url_for('static', filename='images/totoro.gif') }}">
 </body>
 </html>
