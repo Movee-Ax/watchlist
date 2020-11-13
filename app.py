@@ -66,6 +66,8 @@ def initdb(drop):
         db.create_all()
         click.echo('Initialized database.')
         # 输出提示信息
+
+@app.cli.command()
 def forge():
     """Generate fake data."""
     db.create_all()
@@ -104,10 +106,19 @@ class Movie(db.Model):
     title = db.Column(db.String(60))
     year = db.Column(db.String(4))
 
+@app.context_processor
+def inject_user():
+    user = User.query.first()
+    return dict(user = user)
+
 @app.route('/')
 def index():
-    user = User.query.first()
     movies = Movie.query.all()
     # 读取用户记录
     # 读取所有电影记录
-    return render_template('index.html', user=user, movies=movies)
+    return render_template('index.html', movies=movies)
+
+@app.errorhandler(404) # 传入要处理的错误代码
+def page_not_found(e): # 接受异常对象作为参数
+    user = User.query.first()
+    return render_template('404.html'), 404

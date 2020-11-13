@@ -1,26 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ user.name }}'s Watchlist</title>
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}" type="text/css">
-</head>
-<body>
-    <h2>
-        <small><img src="{{ url_for('static', filename='images/avatar.png')}}" class="avatar" alt="Avatar"></small>
-        {{ user.name }}'s Watchlist
-    </h2>
-    {# 使用length过滤器获得movies的长度#}
-    <p>{{movies|length}} Titles</p>
-    <ul class="movie-list">
-        {% for movie in movies %}
-        <li>{{ movie.title }} - {{movie.year}}</li>
-        {% endfor %}
-    </ul>
-    <footer>
-        <small>%copy; 2018<a href="http://jwzx.cqupt.edu.cn">重邮芜湖</a></small>
-    </footer>
-    <img alt="Walking Totoro" class="totoro" src="{{ url_for('static', filename='images/totoro.gif') }}">
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.float-right {
+    float: right;
+}
+.imdb {
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    background: #F5C518;
+    border-radius: 5px;
+    padding: 3px 5px;
+}
+</style>
+<p>{{ movies|length }} Titles</p>
+<ul class="movie-list">
+    {% for movie in movies %}
+    <li>{{ movie.title }} - {{ movie.year }}
+        <span class="float-right">
+            <a class="imdb" href="https://www.baidu.com/s?wd={{movie.title}}&rsv_spt=1&rsv_iqid=0x8bff1eee00020a3b&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&rqlang=cn&tn=baiduhome_pg&rsv_enter=1&rsv_dl=tb&oq=%25E5%2593%2588%25E5%2593%2588&rsv_btype=t&inputT=624&rsv_t=3ef73CZredQf9sfptE8PPAECfcdaiXhDqrncM0ljUGW96D1y70Wx%2F%2BHWEFujE3PbCeUJ&rsv_sug1=4&rsv_sug7=100&rsv_pq=abcccd0c0000baac&rsv_sug3=3&rsv_sug2=0&prefixsug=%25E5%2593%2588%25E5%2593%2588%25E5%2593%2588%25E5%2593%2588%25E5%2595%258A&rsp=1&rsv_sug4=11339" target="_blank" title="Find this movie on IMDb">baidu</a>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+<img alt="Walking Totoro" class="totoro" src="{{ url_for('static', filename='images/totoro.gif') }}" title="to~to~ro~">
+{% endblock %}
