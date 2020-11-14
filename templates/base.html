@@ -29,9 +29,22 @@
         nav li a:hover {
             background-color: #111;
                    }
+        .alert {
+            position: relative;
+            padding: 7px;
+            margin: 7px 0;
+            border: 1px solid transparent;
+            color: #004085;
+            background-color: #cce5ff;
+            border-color: #b8daff;
+            border-radius: 5px;
+                    }
     </style>
 </head>
 <body>
+    {% for message in get_flashed_messages() %}
+        <div class="alert">{{ message }}</div>
+    {% endfor %}
 <h2>
     <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/avatar.png') }}">
     {{ user.name }}'s Watchlist
