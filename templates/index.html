@@ -43,19 +43,24 @@ input[name=year] {
 }
 </style>
 <p>{{ movies|length }} Titles</p>
+    <!-- 在模板中可以直接使用 current_user 变量 -->
+    {% if current_user.is_authenticated %}
     <form method="post">
         Name <input type="text" name="title" autocomplete="off" required>
         Year <input type="text" name="year" autocomplete="off" required>
         <input class="btn" type="submit" name="submit" value="Add">
     </form>
+    {% endif %}
 <ul class="movie-list">
     {% for movie in movies %}
     <li>{{ movie.title }} - {{ movie.year }}
         <span class="float-right">
+            {% if current_user.is_authenticated %}
+             <a class="btn" href="{{ url_for('edit', movie_id=movie.id) }}">Edit</a>
             <form class="inline-form" method="post" action="{{ url_for('delete', movie_id=movie.id) }}">
                 <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
             </form>
-            <a class="btn" href="{{ url_for('edit', movie_id=movie.id) }}">Edit</a>
+            {% endif %}
             <a class="imdb" href="https://www.baidu.com/s?wd={{movie.title}}&rsv_spt=1&rsv_iqid=0x8bff1eee00020a3b&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&rqlang=cn&tn=baiduhome_pg&rsv_enter=1&rsv_dl=tb&oq=%25E5%2593%2588%25E5%2593%2588&rsv_btype=t&inputT=624&rsv_t=3ef73CZredQf9sfptE8PPAECfcdaiXhDqrncM0ljUGW96D1y70Wx%2F%2BHWEFujE3PbCeUJ&rsv_sug1=4&rsv_sug7=100&rsv_pq=abcccd0c0000baac&rsv_sug3=3&rsv_sug2=0&prefixsug=%25E5%2593%2588%25E5%2593%2588%25E5%2593%2588%25E5%2593%2588%25E5%2595%258A&rsp=1&rsv_sug4=11339" target="_blank" title="Find this movie on IMDb">baidu</a>
         </span>
     </li>
